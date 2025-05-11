@@ -2,9 +2,8 @@ from transformers import AutoTokenizer, AutoModelForSequenceClassification
 import torch
 import torch.nn.functional as F
 
-# ✅ 한국어 자연어 추론용 ELECTRA 모델 로드
-tokenizer = AutoTokenizer.from_pretrained("beomi/KcELECTRA-base-klue-nli")
-model = AutoModelForSequenceClassification.from_pretrained("beomi/KcELECTRA-base-klue-nli")
+tokenizer = AutoTokenizer.from_pretrained("klue/roberta-large")
+model = AutoModelForSequenceClassification.from_pretrained("klue/roberta-large")
 
 def check_entailment(premise, hypothesis):
     # 입력 문장 토크나이즈
