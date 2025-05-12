@@ -17,7 +17,7 @@ def check_entailment(premise, hypothesis):
     probs = F.softmax(outputs.logits, dim=1).squeeze().tolist()
 
     # 결과 라벨 지정
-    labels = ["entailment", "neutral", "contradiction"]
+    labels = ["entailment","contradiction","neutral"]
     predicted_index = torch.argmax(outputs.logits, dim=1).item()
     result = labels[predicted_index]
 
