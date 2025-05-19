@@ -2,8 +2,8 @@ from transformers import AutoTokenizer, AutoModelForSequenceClassification
 import torch
 import torch.nn.functional as F
 
-tokenizer = AutoTokenizer.from_pretrained("klue/roberta-large")
-model = AutoModelForSequenceClassification.from_pretrained("klue/roberta-large")
+tokenizer = AutoTokenizer.from_pretrained("beomi/KcELECTRA-base-klue-nli")
+model = AutoModelForSequenceClassification.from_pretrained("beomi/KcELECTRA-base-klue-nli")
 
 def check_entailment(premise, hypothesis):
     # 입력 문장 토크나이즈
