@@ -7,11 +7,6 @@ from transformers import AutoTokenizer, AutoModelForSequenceClassification
 tokenizer = AutoTokenizer.from_pretrained("Huffon/klue-roberta-base-nli")
 model = AutoModelForSequenceClassification.from_pretrained("Huffon/klue-roberta-base-nli")
 
-# ✅ 디바이스 설정 (GPU 우선 사용)
-device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-model.to(device)
-model.eval()
-
 # ✅ 추론 함수 정의
 def check_entailment(premise, hypothesis):
     # 입력 검증
