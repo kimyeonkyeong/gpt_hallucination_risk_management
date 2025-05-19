@@ -4,9 +4,6 @@ import torch.nn.functional as F
 
 tokenizer = AutoTokenizer.from_pretrained("Huffon/klue-roberta-base-nli")
 model = AutoModelForSequenceClassification.from_pretrained("Huffon/klue-roberta-base-nli")
-model.eval()
-device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-model.to(device)
 
 def check_entailment(premise, hypothesis):
     inputs = tokenizer(premise, hypothesis, return_tensors="pt", truncation=True, padding=True).to(device)
