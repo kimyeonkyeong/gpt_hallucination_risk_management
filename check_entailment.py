@@ -6,21 +6,20 @@ from transformers import AutoTokenizer, AutoModelForSequenceClassification
 # ✅ 모델 및 토크나이저 로드 (Huffon/klue-roberta-base-nli)
 tokenizer = AutoTokenizer.from_pretrained("Huffon/klue-roberta-base-nli")
 model = AutoModelForSequenceClassification.from_pretrained("Huffon/klue-roberta-base-nli")
+model.eval()  # 추론 모드 설정
 
-# ✅ 추론 함수 정의
+# ✅ CPU 전용 추론 함수
 def check_entailment(premise, hypothesis):
     # 입력 검증
     if not premise or not isinstance(premise, str) or len(premise.strip()) < 5:
         return {"label": "error", "probs": [0.0, 0.0, 0.0], "confidence": 0.0}
 
-    # 토큰화 및 입력 전처리
+    # 토큰화 및 입력 전처리 (device 전송 없이 CPU 사용)
     encoded = tokenizer(premise, hypothesis, return_tensors="pt", truncation=True, padding=True, max_length=512)
-    input_ids = encoded["input_ids"].to(device)
-    attention_mask = encoded["attention_mask"].to(device)
 
-    # 모델 추론
+    # 모델 추론 (CPU 기준)
     with torch.no_grad():
-        outputs = model(input_ids=input_ids, attention_mask=attention_mask)
+        outputs = model(**encoded)
 
     # 확률 계산
     logits = outputs.logits
