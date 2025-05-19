@@ -16,6 +16,9 @@ def check_entailment(premise, hypothesis):
     probs = F.softmax(outputs.logits, dim=1).squeeze().tolist()
     labels = ["entailment", "neutral", "contradiction"]
     predicted_index = torch.argmax(outputs.logits, dim=1).item()
-    result = labels[predicted_index]
 
-    return result, [round(p, 4) for p in probs]
+    return {
+        "label": labels[predicted_index],
+        "probs": [round(p, 4) for p in probs],
+        "confidence": round(probs[predicted_index], 4)
+    }
