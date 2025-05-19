@@ -4,7 +4,7 @@ import torch.nn.functional as F
 from transformers import AutoTokenizer, AutoModelForSequenceClassification
 
 # ✅ 모델 및 토크나이저 로드 (Huffon/klue-roberta-base-nli)
-tokenizer = AutoTokenizer.from_pretrained("Huffon/klue-roberta-base-nli")
+tokenizer = AutoTokenizer.from_pretrained("klue/roberta-base")
 model = AutoModelForSequenceClassification.from_pretrained("Huffon/klue-roberta-base-nli")
 model.eval()  # 추론 모드 설정
 
