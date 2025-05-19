@@ -3,9 +3,10 @@ import torch
 import torch.nn.functional as F
 from transformers import AutoTokenizer, AutoModelForSequenceClassification
 
-tokenizer = AutoTokenizer.from_pretrained("monologg/koelectra-base-v3-nli")
-model = AutoModelForSequenceClassification.from_pretrained("monologg/koelectra-base-v3-nli")
-model.eval()
+tokenizer = AutoTokenizer.from_pretrained("Huffon/klue-roberta-base-nli")
+model = AutoModelForSequenceClassification.from_pretrained("Huffon/klue-roberta-base-nli")
+model.eval()  # 추론 모드 설정
+
 
 # ✅ CPU 전용 추론 함수
 def check_entailment(premise, hypothesis):
