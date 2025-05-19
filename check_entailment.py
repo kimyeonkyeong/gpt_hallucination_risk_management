@@ -1,14 +1,19 @@
-from transformers import AutoTokenizer, AutoModelForSequenceClassification
+# ✅ 추가: GPU 지원 + padding 적용 + eval 설정
 import torch
 import torch.nn.functional as F
+from transformers import AutoTokenizer, AutoModelForSequenceClassification
 
-# ✅ 모델 및 토크나이저 로드
+# 모델 및 토크나이저 로드
 tokenizer = AutoTokenizer.from_pretrained("Huffon/klue-roberta-base-nli")
 model = AutoModelForSequenceClassification.from_pretrained("Huffon/klue-roberta-base-nli")
 
-# ✅ 추론 함수
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+model.to(device)
+model.eval()
+
+# 추론 함수
 def check_entailment(premise, hypothesis):
-    inputs = tokenizer(premise, hypothesis, return_tensors="pt", truncation=True)
+    inputs = tokenizer(premise, hypothesis, return_tensors="pt", truncation=True, padding=True).to(device)
 
     with torch.no_grad():
         outputs = model(**inputs)
